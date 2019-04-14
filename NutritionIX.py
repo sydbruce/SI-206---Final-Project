@@ -2,8 +2,9 @@ import requests
 import json
 import Keys
 
-nutritionixAPI = Keys.nutritionixAPI
-nutritionixAuth= Keys.nutritionixAuth
+#Nutritionix Key Configuration
+NutritionixAPI = Keys.NutritionixAPI
+NutriotinixAuth = Keys.NutriotinixAuth
 
-auth = tweepy.OAuthHandler(cosnsumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = Keys.OAuthHandler(NutritionixAPI)
+auth.set_access_token(NutritionixAPI)

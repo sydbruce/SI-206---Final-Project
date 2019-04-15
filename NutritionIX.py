@@ -3,8 +3,11 @@ import json
 import Keys
 
 #Nutritionix Key Configuration
-NutritionixAPI = Keys.NutritionixAPI
-NutriotinixAuth = Keys.NutriotinixAuth
+appID = Keys.appID
+appKey = Keys.appKey
 
-auth = Keys.OAuthHandler(NutritionixAPI)
-auth.set_access_token(NutritionixAPI)
+from nutritionix import Nutritionix
+nix = Nutritionix(app_id = appID, api_key = appKey)
+
+def get_nutrition_info(api, cacheDict, fname):
+    print(nix.search('Big Mac').json())

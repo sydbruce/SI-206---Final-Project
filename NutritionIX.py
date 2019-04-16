@@ -25,12 +25,33 @@ def get_food_id(food_item):
     ID = (raw_info['hits'][0]["_id"])
     return ID
 
-def get_food_nutrition(food_item):
+def get_food_fat(food_item):
     nutrition = nix.item(id = get_food_id(food_item)).json()
-    return nutrition["nf_saturated_fat"]
+    return nutrition["nf_total_fat"]
 
-hii = get_food_nutrition("Big Mac")
+def get_food_sodium(food_item):
+    nutrition = nix.item(id = get_food_id(food_item)).json()
+    return nutrition["nf_sodium"]
+
+def get_food_sugar(food_item):
+    nutrition = nix.item(id = get_food_id(food_item)).json()
+    return nutrition["nf_sugars"]
+
+
+#def get_nutritional_dict(food_item):
+  #  nutritional_dict = {}
+ #   for nutri_value in nutritional_dict:
+   #     nutritional_dict[fat] = dicts.get(day, 0) + 1
+    #    nutritional_dict[sodium] = dicts.get(day, 0) + 1
+     #   nutritional_dict[sugars] = dicts.get(day, 0) + 1
+    
+
+hi = get_food_fat("Big Mac")
+hii = get_food_sugar("Big Mac")
+hiii = get_food_sodium("Big Mac")
+print(hi)
 print(hii)
+print(hiii)
 
 ### Code Test Area ###
 #go = nix.item(id="513fc9e73fe3ffd40300109f").json()
@@ -80,4 +101,7 @@ testers = """
    "allergen_contains_soybeans": null,
    "allergen_contains_gluten": null,
    "usda_fields": null
+
+
+   #search retrieval, need 100 items, possibly automate it using search terms like from food groups, like "shake + mcd", "shake + bk", etc.
    """

@@ -5,7 +5,7 @@ API_Key = "ob0tETqlKnY-p2pgkkhFaVcH7wSXOcw0FsPHm_rmbLL_HnDMQO7xR-9ddJX8ZRnwpiJja
 #ZomatoAPI
 ZomatoAPI = "92f52707cb7d5d28d57b18760216faf5"
 
-#NutritionixAPI
+#OpenWeatherMap
 api_key = "18986dda768120a40dedd844f76d161a"
 
 

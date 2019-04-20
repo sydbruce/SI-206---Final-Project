@@ -27,19 +27,20 @@ def getZomato(zomato_key, location):
         header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user-key": zomato_key}
         params = {'query': location}
         req = requests.get(url,params = params, headers=header)
-        return (json.loads(req.text))
-    
-def getEstablishments(zomato_key, city_id):
-        city = getZomato(zomato_key, "New York City")
-        for item in city["location_suggestions"]:
-                ent_type = item["entity_type"]
-                ent_id = item["entity_id"]
-                ent_tuple = (ent_type, ent_id)
-        print(ent_tuple)
-        return None
-        
+        r = json.loads(req.text)
+        return (r["location_suggestions"][0]["entity_id"], r["location_suggestions"][0]["entity_type"])
 
-"""
+
+def getLocationDetails(zomato_key, city_input):
+        city = getZomato(zomato_key, city_input)
+        url = "https://developers.zomato.com/api/v2.1/location_details"
+        header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user-key": zomato_key}
+        params = {'entity_id': city[0], 'entity_type': city[1]}
+        req = requests.get(url,params = params, headers=header)
+        return json.loads(req.text)
+        
+        """
+
 def setupZomatoDataBase(data):
     conn = sqlite3.connect('ZomatoData.sqlite')
     cur = conn.cursor()
@@ -56,14 +57,18 @@ def setupZomatoDataBase(data):
         conn.commit()
     
 """
+data1 = getLocationDetails(zomato_key, "New York City")
+data2 = getLocationDetails(zomato_key, "Los Angeles")
+data3 = getLocationDetails(zomato_key, "Detroit")
+data4 = getLocationDetails(zomato_key, "Chicago")
+data5 = getLocationDetails(zomato_key, "Ann Arbor")
 
-data = getZomato(zomato_key, "New York City")  
-print(data)
-data6 = getEstablishments(zomato_key, )
-data2 = getZomato(zomato_key, "Detroit")
-data3 = getZomato(zomato_key, "Los Angeles") 
-data4 = getZomato(zomato_key, "Ann Arbor") 
-data5 = getZomato(zomato_key, "Chicago")      
+
+print(data1)
+print(data2)
+print(data3)
+print(data4)
+print(data5)
 
 """
 setupZomatoDataBase(data)

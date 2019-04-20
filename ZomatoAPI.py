@@ -23,16 +23,21 @@ find_cities(zomato_key, "California")
 
 """
 def getZomato(zomato_key, location):
-    url = "https://developers.zomato.com/api/v2.1/locations"
-    header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user-key": zomato_key}
-    params = {'query': location}
-    req = requests.get(url,params = params, headers=header)
-    print(json.loads(req.text))
-    return None
+        url = "https://developers.zomato.com/api/v2.1/locations"
+        header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user-key": zomato_key}
+        params = {'query': location}
+        req = requests.get(url,params = params, headers=header)
+        return (json.loads(req.text))
     
 def getEstablishments(zomato_key, city_id):
         city = getZomato(zomato_key, "New York City")
-        for item in 
+        for item in city["location_suggestions"]:
+                ent_type = item["entity_type"]
+                ent_id = item["entity_id"]
+                ent_tuple = (ent_type, ent_id)
+        print(ent_tuple)
+        return None
+        
 
 """
 def setupZomatoDataBase(data):
@@ -53,6 +58,8 @@ def setupZomatoDataBase(data):
 """
 
 data = getZomato(zomato_key, "New York City")  
+print(data)
+data6 = getEstablishments(zomato_key, )
 data2 = getZomato(zomato_key, "Detroit")
 data3 = getZomato(zomato_key, "Los Angeles") 
 data4 = getZomato(zomato_key, "Ann Arbor") 

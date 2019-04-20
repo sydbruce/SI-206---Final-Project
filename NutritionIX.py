@@ -3,16 +3,15 @@ import json
 import Keys
 import sqlite3
 
-#Nutritionix Key Configuration
-
-appID = Keys.appID
-appKey = Keys.appKey
-
+#database configuration
 def SQLSetup():
     conn = sqlite3.connect("NutritionixData.sql")
     cur = conn.cursor()
     cur.execute("CREATE TABLE ")
 
+#Nutritionix Key Configuration
+appID = Keys.appID
+appKey = Keys.appKey
 
 from nutritionix import Nutritionix
 nix = Nutritionix(app_id = appID, api_key = appKey)
@@ -37,7 +36,22 @@ def get_food_sugar(food_item):
     nutrition = nix.item(id = get_food_id(food_item)).json()
     return nutrition["nf_sugars"]
 
+def get_food_fat_sodium_sugar(food_item):
+  nutrition_tuple = ()
+  fat = get_food_fat(food_item)
+  sodium = get_food_sodium(food_item)
+  sugar = get_food_sugar(food_item)
+  counter = 0
+  while True:
+    if counter > 1: 
+      break
+    else:
+      nutrition_tuple += (fat, sodium, sugar)
+      counter += 1
+  return nutrition_tuple
 
+lol = get_food_fat_sodium_sugar("big mac")
+#print(lol)
 #def get_nutritional_dict(food_item):
   #  nutritional_dict = {}
  #   for nutri_value in nutritional_dict:
@@ -49,16 +63,28 @@ def get_food_sugar(food_item):
 hi = get_food_fat("Big Mac")
 hii = get_food_sugar("Big Mac")
 hiii = get_food_sodium("Big Mac")
-print(hi)
-print(hii)
-print(hiii)
+#print(hi)
+#print(hii)
+#print(hiii)
+
+big = nix.search("big mac", results="0:1").json()
+#print(big)
+
+
+#brand = nix.brand(id = "bV").json()
+#print(json.dumps(brand, indent = 3))
+branding = nix.brand(name = "California Pizza Kitchen", limit=10, offset=0, type=1).json()
+print(json.dumps(branding, indent = 3))
+
 
 ### Code Test Area ###
 #go = nix.item(id="513fc9e73fe3ffd40300109f").json()
 #print(json.dumps(go, indent= 3))
 
+
 testers = """
 {
+
    "old_api_id": null,
    "item_id": "513fc9e73fe3ffd40300109f",
    "item_name": "Big Mac",

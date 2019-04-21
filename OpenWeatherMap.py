@@ -2,9 +2,7 @@ import requests
 import json
 import Keys
 import sqlite3
-#TO GRADER: pprint package allows me to print json paragraphs "prettified"
 import pprint
-
 
 #database configuration
 def SQLSetup():

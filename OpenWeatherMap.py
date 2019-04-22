@@ -36,7 +36,7 @@ def getData(response):
         conn.commit()
     
 
-LA = "5230092"
+LA = "3882428"
 Weather_LA = getWeather(LA)
 #getData(Weather_LA) running these commented out portions will populate the database, only run them once
 

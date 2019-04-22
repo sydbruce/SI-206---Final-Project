@@ -45,20 +45,28 @@ def setupZomatoDataBase(data):
     conn = sqlite3.connect('ZomatoData.sqlite')
     cur = conn.cursor()
 
-    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT)')
     
-    _popularity = data['popularity']
-    _nightlife_index = data['nightlife_index']
-    _best_rated_restaurant_name = data['best_rated_restaurant'][0]['restaurant']['name']
-    _best_rated_restaurant_price_range = data['best_rated_restaurant'][0]['restaurant']['price_range']
-    _best_rated_restaurant_aggregate_rating = data['best_rated_restaurant'][0]['restaurant']['user_rating']['aggregate_rating']
-    
-    cur.execute('INSERT INTO ZomatoData(popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating) VALUES (?,?,?,?,?)', (_popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating))
-    conn.commit()
+    for i in range(10):
+            _city_name = data['location']['city_name']
+            _popularity = data['popularity']
+            _nightlife_index = data['nightlife_index']
+            _best_rated_restaurant_name = data['best_rated_restaurant'][i]['restaurant']['name']
+            _best_rated_restaurant_price_range = data['best_rated_restaurant'][i]['restaurant']['price_range']
+            _best_rated_restaurant_aggregate_rating = data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating']
+            cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating) VALUES (?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating))
+            conn.commit()
     
 
-data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "New York City"))
-data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Los Angeles"))
-data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Detroit"))
-data4 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"))
-data5 = setupZomatoDataBase(getLocationDetails(zomato_key, "Ann Arbor"))
+data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Ann Arbor"))
+data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"))
+data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"))
+data4 = setupZomatoDataBase(getLocationDetails(zomato_key, "Detroit"))
+data5 = setupZomatoDataBase(getLocationDetails(zomato_key, "Houston"))
+data6 = setupZomatoDataBase(getLocationDetails(zomato_key, "Los Angeles"))
+data7 = setupZomatoDataBase(getLocationDetails(zomato_key, "New York City"))
+data8 = setupZomatoDataBase(getLocationDetails(zomato_key, "Philadelphia"))
+data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"))
+data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"))
+
+

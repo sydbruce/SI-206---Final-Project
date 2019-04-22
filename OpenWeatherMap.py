@@ -35,10 +35,10 @@ def getData(response):
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()
     
-
+#running these commented out portions will populate the database, only run them once
 LA = "3882428"
 Weather_LA = getWeather(LA)
-#getData(Weather_LA) running these commented out portions will populate the database, only run them once
+#getData(Weather_LA) 
 
 Ann_Arbor = "4984247"
 Weather_Ann_Arbor = getWeather(Ann_Arbor)

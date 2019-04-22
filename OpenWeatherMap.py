@@ -19,7 +19,7 @@ def getWeather(city_id):
 def getData(response):
     conn = sqlite3.connect("WeatherData.sql")
     cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT UNIQUE, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
     _id = response['city']['id']
     _city_name = response['city']['name']
     counter = 0
@@ -38,40 +38,40 @@ def getData(response):
 #running these commented out portions will populate the database, only run them once
 Atlanta = "4671576"
 Weather_Atlanta = getWeather(Atlanta)
-#getData(Weather_Atlanta)
+getData(Weather_Atlanta)
 
 Boston = "4930956"
 Weather_Boston = getWeather(Boston)
-#getData(Weather_Boston)
+getData(Weather_Boston)
 
 Chicago = "3582383"
 Weather_Chicago = getWeather(Chicago)
-#getData(Weather_Chicago)
+getData(Weather_Chicago)
 
 Detroit = "4990729"
 Weather_Detroit = getWeather(Detroit)
-#getData(Weather_Detroit)
+getData(Weather_Detroit)
 
 Houston = "4699066"
 Weather_Houston = getWeather(Houston)
-#getData(Weather_Houston)
+getData(Weather_Houston)
 
 LA = "3882428"
 Weather_LA = getWeather(LA)
-#getData(Weather_LA) 
+getData(Weather_LA) 
 
 NYC = "5128638"
 Weather_NYC = getWeather(NYC)
-#getData(Weather_NYC)
+getData(Weather_NYC)
 
 Philadelphia = "4560349"
 Weather_Philadelphia = getWeather(Philadelphia)
-#getData(Weather_Philadelphia)
+getData(Weather_Philadelphia)
 
 San_Francisco = "5391997"
 Weather_San_Francisco = getWeather(San_Francisco)
-#getData(Weather_San_Francisco)
+getData(Weather_San_Francisco)
 
 Seattle = "5809844"
 Weather_Seattle = getWeather(Seattle)
-#getData(Weather_Seattle)
+getData(Weather_Seattle)

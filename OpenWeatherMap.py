@@ -28,6 +28,8 @@ def getData(response):
         _temp_min = data['main']['temp_min']
         _humidity = data['main']['humidity']
         _weather_desc = data['weather'][0]['description']
+        counter = 0
+        counter += 1
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()
     
@@ -43,3 +45,12 @@ getData(Weather_Ann_Arbor)
 Detroit = "4990729"
 Weather_Detroit = getWeather(Detroit)
 getData(Weather_Detroit)
+
+Chicago = "3582383"
+Weather_Chicago = getWeather(Chicago)
+getData(Weather_Chicago)
+
+NYC = "5128638"
+Weather_NYC = getWeather(NYC)
+getData(Weather_NYC)
+

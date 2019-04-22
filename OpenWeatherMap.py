@@ -36,23 +36,42 @@ def getData(response):
         conn.commit()
     
 #running these commented out portions will populate the database, only run them once
-LA = "3882428"
-Weather_LA = getWeather(LA)
-#getData(Weather_LA) 
+Atlanta = "4671576"
+Weather_Atlanta = getWeather(Atlanta)
+#getData(Weather_Atlanta)
 
-Ann_Arbor = "4984247"
-Weather_Ann_Arbor = getWeather(Ann_Arbor)
-#getData(Weather_Ann_Arbor)
-
-Detroit = "4990729"
-Weather_Detroit = getWeather(Detroit)
-#getData(Weather_Detroit)
+Boston = "4930956"
+Weather_Boston = getWeather(Boston)
+#getData(Weather_Boston)
 
 Chicago = "3582383"
 Weather_Chicago = getWeather(Chicago)
 #getData(Weather_Chicago)
 
+Detroit = "4990729"
+Weather_Detroit = getWeather(Detroit)
+#getData(Weather_Detroit)
+
+Houston = "4699066"
+Weather_Houston = getWeather(Houston)
+#getData(Weather_Houston)
+
+LA = "3882428"
+Weather_LA = getWeather(LA)
+#getData(Weather_LA) 
+
 NYC = "5128638"
 Weather_NYC = getWeather(NYC)
 #getData(Weather_NYC)
 
+Philadelphia = "4560349"
+Weather_Philadelphia = getWeather(Philadelphia)
+#getData(Weather_Philadelphia)
+
+San_Francisco = "5391997"
+Weather_San_Francisco = getWeather(San_Francisco)
+#getData(Weather_San_Francisco)
+
+Seattle = "5809844"
+Weather_Seattle = getWeather(Seattle)
+#getData(Weather_Seattle)

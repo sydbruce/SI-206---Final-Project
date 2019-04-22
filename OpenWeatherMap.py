@@ -36,23 +36,23 @@ def getData(response):
         conn.commit()
     
 
-LA = "5368381"
+LA = "5230092"
 Weather_LA = getWeather(LA)
-getData(Weather_LA)
+#getData(Weather_LA) running these commented out portions will populate the database, only run them once
 
 Ann_Arbor = "4984247"
 Weather_Ann_Arbor = getWeather(Ann_Arbor)
-getData(Weather_Ann_Arbor)
+#getData(Weather_Ann_Arbor)
 
 Detroit = "4990729"
 Weather_Detroit = getWeather(Detroit)
-getData(Weather_Detroit)
+#getData(Weather_Detroit)
 
 Chicago = "3582383"
 Weather_Chicago = getWeather(Chicago)
-getData(Weather_Chicago)
+#getData(Weather_Chicago)
 
 NYC = "5128638"
 Weather_NYC = getWeather(NYC)
-getData(Weather_NYC)
+#getData(Weather_NYC)
 

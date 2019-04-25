@@ -56,9 +56,8 @@ def setupZomatoDataBase(data):
             _best_rated_restaurant_aggregate_rating = data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating']
             cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating) VALUES (?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating))
             conn.commit()
-    
-
-data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Ann Arbor"))
+   
+data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"))
 data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"))
 data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"))
 data4 = setupZomatoDataBase(getLocationDetails(zomato_key, "Detroit"))

@@ -30,7 +30,7 @@ def getData(response):
         _humidity = data['main']['humidity']
         _weather_desc = data['weather'][0]['description']
         counter += 1
-        if counter == 21:
+        if counter == 17:
             break
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()

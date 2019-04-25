@@ -44,8 +44,12 @@ def getLocationDetails(zomato_key, city_input):
 def setupZomatoDataBase(data):
     conn = sqlite3.connect('ZomatoData.sqlite')
     cur = conn.cursor()
+    _city_restaurants_price_range_total = 0
+    _city_restaurants_price_range_average = 0
+    _city_restaurants_aggregate_rating_total = 0
+    _city_restaurants_aggregate_rating_average = 0
 
-    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT, city_restaurants_price_range_average INTEGER, city_restaurants_aggregate_rating_average INTEGER)')
     
     for i in range(10):
             _city_name = data['location']['city_name']
@@ -54,8 +58,17 @@ def setupZomatoDataBase(data):
             _best_rated_restaurant_name = data['best_rated_restaurant'][i]['restaurant']['name']
             _best_rated_restaurant_price_range = data['best_rated_restaurant'][i]['restaurant']['price_range']
             _best_rated_restaurant_aggregate_rating = data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating']
-            cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating) VALUES (?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating))
+            
+            #The calculations are below, final average number shown in 10th best restaurant for each city
+            _city_restaurants_price_range_total += data['best_rated_restaurant'][i]['restaurant']['price_range']
+            _city_restaurants_price_range_average = _city_restaurants_price_range_total / (i+1)
+            _city_restaurants_aggregate_rating_total += float(data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating'])
+            _city_restaurants_aggregate_rating_average =_city_restaurants_aggregate_rating_total / (i+1)
+            
+            cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating, city_restaurants_price_range_average, city_restaurants_aggregate_rating_average) VALUES (?,?,?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating, _city_restaurants_price_range_average, _city_restaurants_aggregate_rating_average))
             conn.commit()
+
+#For visualizations: I can look at city popularity, nightlife_index, best_restaurant price/rating, city_restaurants average price/rating
    
 data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"))
 data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"))

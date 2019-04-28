@@ -17,38 +17,28 @@ def getWeather(city_id):
 
 
 def getData(response):
-    conn = sqlite3.connect("WeatherData.sql")
+    conn = sqlite3.connect("WeatherData.sqlite3")
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT UNIQUE, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
     _id = response['city']['id']
     _city_name = response['city']['name']
+    counter = 0
     for data in response['list']:
         _time = data['dt_txt']
         _temp_max = data['main']['temp_max']
         _temp_min = data['main']['temp_min']
         _humidity = data['main']['humidity']
         _weather_desc = data['weather'][0]['description']
-        counter = 0
         counter += 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         if counter == 17:
-=======
-        if counter == 21:
->>>>>>> parent of 87d18aa... d
-=======
-        if counter == 21:
->>>>>>> parent of 87d18aa... d
             break
-=======
->>>>>>> parent of cc26da9... done!
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()
     
 #running these commented out portions will populate the database, only run them once
 Atlanta = "4671576"
 Weather_Atlanta = getWeather(Atlanta)
+print(Weather_Atlanta)
 getData(Weather_Atlanta)
 
 Boston = "4930956"
@@ -87,7 +77,7 @@ Seattle = "5809844"
 Weather_Seattle = getWeather(Seattle)
 getData(Weather_Seattle)
 
-
+hi = """
 
 import requests
 import json
@@ -170,3 +160,4 @@ getData(Weather_San_Francisco)
 Seattle = "5809844"
 Weather_Seattle = getWeather(Seattle)
 getData(Weather_Seattle)
+"""

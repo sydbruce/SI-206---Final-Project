@@ -32,7 +32,11 @@ def getData(response):
         counter += 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if counter == 17:
+=======
+        if counter == 21:
+>>>>>>> parent of 87d18aa... d
 =======
         if counter == 21:
 >>>>>>> parent of 87d18aa... d

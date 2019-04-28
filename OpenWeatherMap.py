@@ -22,16 +22,19 @@ def getData(response):
     cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT UNIQUE, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
     _id = response['city']['id']
     _city_name = response['city']['name']
-    counter = 0
     for data in response['list']:
         _time = data['dt_txt']
         _temp_max = data['main']['temp_max']
         _temp_min = data['main']['temp_min']
         _humidity = data['main']['humidity']
         _weather_desc = data['weather'][0]['description']
+        counter = 0
         counter += 1
+<<<<<<< HEAD
         if counter == 17:
             break
+=======
+>>>>>>> parent of cc26da9... done!
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()
     

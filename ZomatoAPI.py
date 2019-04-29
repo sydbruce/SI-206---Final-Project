@@ -7,23 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 zomato_key = Keys.ZomatoAPI
-"""
-url = "https://developers.zomato.com/api/v2.1/categories"
 
-#Pull ids for categories
-request = requests.get(url, headers={'user-key': zomato_key})
-print(json.loads(request.text))
-
-
-def find_cities(zomato_key, query):
-    url = "https://developers.zomato.com/api/v2.1/cities"
-    request = requests.get(url, headers={'user-key': zomato_key, 'q':query})
-    print(json.loads(request.text))
-    return None
-
-find_cities(zomato_key, "California")
-
-"""
 def getZomato(zomato_key, location):
         url = "https://developers.zomato.com/api/v2.1/locations"
         header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user-key": zomato_key}
@@ -42,16 +26,11 @@ def getLocationDetails(zomato_key, city_input):
         return json.loads(req.text)
         
         
-
 def setupZomatoDataBase(data, cityName):
     conn = sqlite3.connect('ZomatoData.sqlite')
     cur = conn.cursor()
-    _city_restaurants_price_range_total = 0
-    _city_restaurants_price_range_average = 0
-    _city_restaurants_aggregate_rating_total = 0
-    _city_restaurants_aggregate_rating_average = 0
 
-    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT, city_restaurants_price_range_average INTEGER, city_restaurants_aggregate_rating_average INTEGER)')
+    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT)')
     
     for i in range(10):
             _city_name = data['location']['city_name']
@@ -60,15 +39,11 @@ def setupZomatoDataBase(data, cityName):
             _best_rated_restaurant_name = data['best_rated_restaurant'][i]['restaurant']['name']
             _best_rated_restaurant_price_range = data['best_rated_restaurant'][i]['restaurant']['price_range']
             _best_rated_restaurant_aggregate_rating = data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating']
-            
-            #The calculations are below, final average number shown in 10th best restaurant for each city
-            _city_restaurants_price_range_total += data['best_rated_restaurant'][i]['restaurant']['price_range']
-            _city_restaurants_price_range_average = _city_restaurants_price_range_total / (i+1)
-            _city_restaurants_aggregate_rating_total += float(data['best_rated_restaurant'][i]['restaurant']['user_rating']['aggregate_rating'])
-            _city_restaurants_aggregate_rating_average =_city_restaurants_aggregate_rating_total / (i+1)
-            
-            cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating, city_restaurants_price_range_average, city_restaurants_aggregate_rating_average) VALUES (?,?,?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating, _city_restaurants_price_range_average, _city_restaurants_aggregate_rating_average))
+           
+            cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating) VALUES (?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating))
             conn.commit()
+    
+    #The Calculations are Below and added into a new database
     rate_total = 0
     price_total = 0
     count = 0
@@ -86,10 +61,8 @@ def setupZomatoDataBase(data, cityName):
     conn = sqlite3.connect('ZomatoCalc.sqlite')
     cur = conn.cursor()
     cur.execute('CREATE TABLE IF NOT EXISTS ZomatoCalc(average_rate INTEGER, average_price INTEGER)')
-
     cur.execute('INSERT INTO ZomatoCalc(average_rate, average_price) VALUES (?,?)', (rate_average, price_average,))
     conn.commit()
-
 
 
 def createVisualizations():
@@ -126,8 +99,38 @@ def createVisualizations():
         plt.savefig("cityNightlife.png")
         plt.show()
 
-#For visualizations: I can look at city popularity, nightlife_index, best_restaurant price/rating, city_restaurants average price/rating
-   
+        conn = sqlite3.connect('ZomatoCalc.sqlite')
+        cur = conn.cursor()
+        
+        #Restaurant Rating Visualization
+        rate_list = []
+        cur.execute("SELECT * from ZomatoCalc")
+        for row in cur:
+                rate_list.append(float(row[0]))
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [rate_list[0],rate_list[1],rate_list[2],rate_list[3],rate_list[4],rate_list[5],rate_list[6],rate_list[7],rate_list[8],rate_list[9]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Restaurant Average Rating")
+        plt.xlabel("City Name")
+        plt.title("Restaurant Average Rating for U.S. Cities")
+        plt.savefig("cityRestaurantRates.png")
+        plt.show()
+
+        #Restaurant Price Visualization
+        price_list = []
+        cur.execute("SELECT * from ZomatoCalc") #could have also just selcted price_average column w/out for loop
+        for row in cur:
+                price_list.append(float(row[1]))
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [price_list[0],price_list[1],price_list[2],price_list[3],price_list[4],price_list[5],price_list[6],price_list[7],price_list[8],price_list[9]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Restaurant Average Price")
+        plt.xlabel("City Name")
+        plt.title("Restaurant Average Price for U.S. Cities")
+        plt.savefig("cityRestaurantPrices.png")
+        plt.show()
+
+#Function calls to get data into DB   
 data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"), "Atlanta")
 data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"), "Boston")
 data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"), "Chicago")
@@ -139,4 +142,5 @@ data8 = setupZomatoDataBase(getLocationDetails(zomato_key, "Philadelphia"), "Phi
 data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"), "San Francisco")
 data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle")
 
-data11 = createVisualizations()
+#Function call to create Visualizations
+visualize = createVisualizations()

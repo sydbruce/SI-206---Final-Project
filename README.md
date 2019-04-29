@@ -51,7 +51,7 @@ Once all the calculations are run we all pull from the database to create our in
 Results:
 Following the instructions above will create multiple visualizations for each API:
     Zomato: 4 visualizations (4 bar charts)
-    Weather: 3 visualizations (3 bar charts)
+    Weather: 2 visualizations (1 bar chart, 1 scatterplot)
     Yelp: 2 visualizations (2 bar charts)
 
 All are .png files pasted in our final report

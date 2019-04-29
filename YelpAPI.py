@@ -40,14 +40,21 @@ def setupYelpDataBase(YelpList):
         cur.execute('INSERT OR IGNORE INTO YelpData(id, name, review_count, rating, price, location, city) VALUES (?,?,?,?,?,?,?)', (_ID, _name, _review_count, _rating, _price, _location, _city))
         conn.commit()
 
-def getCalculations(YelpData, city_name):
+def getCalculations():
     conn = sqlite3.connect('YelpData.sqlite')
     cur = conn.cursor()
-    cur.execute("SELECT rating FROM YelpData WHERE city =" + city_name)
-    city = {}
+    cur.execute("SELECT rating, city, price from YelpData")
+    total = 0
+    count = 0
     for row in cur:
-        rating = (row[0][0:10])
-        city[rating] = city.get(rating, 0) = 1
+            city = row[1]
+            if city == city:
+                    total += (row[0])
+                    count += 1
+    average = total/count
+    print(average)
+        
+        
 
 
 data1 = getYelp(YelpAPIKey, "Atlanta")
@@ -71,4 +78,5 @@ setupYelpDataBase(data8)
 setupYelpDataBase(data9)
 setupYelpDataBase(data10)
 
-AtlantaData = getCalculations('Atlanta')
+
+getCalculations()

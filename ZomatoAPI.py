@@ -43,7 +43,7 @@ def getLocationDetails(zomato_key, city_input):
         
         
 
-def setupZomatoDataBase(data):
+def setupZomatoDataBase(data, cityName):
     conn = sqlite3.connect('ZomatoData.sqlite')
     cur = conn.cursor()
     _city_restaurants_price_range_total = 0
@@ -69,6 +69,18 @@ def setupZomatoDataBase(data):
             
             cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating, city_restaurants_price_range_average, city_restaurants_aggregate_rating_average) VALUES (?,?,?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating, _city_restaurants_price_range_average, _city_restaurants_aggregate_rating_average))
             conn.commit()
+    total = 0
+    count = 0
+    average = 0
+    cur.execute('SELECT * FROM ZomatoData')
+    for row in cur:
+            city_name = row[0]
+            if city_name == cityName:
+                    total += float(row[5])
+                    count += 1
+    average = total/count
+    print(average)
+
 
 def createVisualizations():
         conn = sqlite3.connect('ZomatoData.sqlite')
@@ -106,15 +118,15 @@ def createVisualizations():
 
 #For visualizations: I can look at city popularity, nightlife_index, best_restaurant price/rating, city_restaurants average price/rating
    
-data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"))
-data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"))
-data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"))
-data4 = setupZomatoDataBase(getLocationDetails(zomato_key, "Detroit"))
-data5 = setupZomatoDataBase(getLocationDetails(zomato_key, "Houston"))
-data6 = setupZomatoDataBase(getLocationDetails(zomato_key, "Los Angeles"))
-data7 = setupZomatoDataBase(getLocationDetails(zomato_key, "New York City"))
-data8 = setupZomatoDataBase(getLocationDetails(zomato_key, "Philadelphia"))
-data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"))
-data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"))
+data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"), "Atlanta")
+data2 = setupZomatoDataBase(getLocationDetails(zomato_key, "Boston"), "Boston")
+data3 = setupZomatoDataBase(getLocationDetails(zomato_key, "Chicago"), "Chicago")
+data4 = setupZomatoDataBase(getLocationDetails(zomato_key, "Detroit"), "Detroit")
+data5 = setupZomatoDataBase(getLocationDetails(zomato_key, "Houston"), "Houston")
+data6 = setupZomatoDataBase(getLocationDetails(zomato_key, "Los Angeles"), "Los Angeles")
+data7 = setupZomatoDataBase(getLocationDetails(zomato_key, "New York City"), "New York City")
+data8 = setupZomatoDataBase(getLocationDetails(zomato_key, "Philadelphia"), "Philadelphia")
+data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"), "San Francisco")
+data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle")
 
 data11 = createVisualizations()

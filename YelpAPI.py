@@ -16,7 +16,7 @@ def getYelp(YelpAPIKey, search_city):
 
 
 
-def setupYelpDataBase(YelpList):
+def setupYelpDataBase(YelpList, city_name):
     conn = sqlite3.connect('YelpData.sqlite')
     cur = conn.cursor()
 
@@ -40,19 +40,16 @@ def setupYelpDataBase(YelpList):
         cur.execute('INSERT OR IGNORE INTO YelpData(id, name, review_count, rating, price, location, city) VALUES (?,?,?,?,?,?,?)', (_ID, _name, _review_count, _rating, _price, _location, _city))
         conn.commit()
 
-def getCalculations():
-    conn = sqlite3.connect('YelpData.sqlite')
-    cur = conn.cursor()
-    cur.execute("SELECT rating, city, price from YelpData")
-    total = 0
-    count = 0
-    for row in cur:
-            city = row[1]
-            if city == city:
-                    total += (row[0])
-                    count += 1
-    average = total/count
-    print(average)
+        cur.execute("SELECT rating, city, price from YelpData")
+        total = 0
+        count = 0
+        for row in cur:
+                city = row[1]
+                if city == city:
+                        total += (row[0])
+                        count += 1
+        average = total/count
+        print(average)
         
         
 
@@ -63,20 +60,19 @@ data3 = getYelp(YelpAPIKey, "Chicago")
 data4 = getYelp(YelpAPIKey, "Detroit")
 data5 = getYelp(YelpAPIKey, "Houston")
 data6 = getYelp(YelpAPIKey, "Los Angeles")
-data7 = getYelp(YelpAPIKey, "New York City")
+data7 = getYelp(YelpAPIKey, "New York")
 data8 = getYelp(YelpAPIKey, "Philadelphia")
 data9 = getYelp(YelpAPIKey, "San Francisco")
 data10 = getYelp(YelpAPIKey, "Seattle")
-setupYelpDataBase(data1)
-setupYelpDataBase(data2)
-setupYelpDataBase(data3)
-setupYelpDataBase(data4)
-setupYelpDataBase(data5)
-setupYelpDataBase(data6)
-setupYelpDataBase(data7)
-setupYelpDataBase(data8)
-setupYelpDataBase(data9)
-setupYelpDataBase(data10)
+setupYelpDataBase(data1, 'Atlanta')
+setupYelpDataBase(data2, 'Boston')
+setupYelpDataBase(data3, 'Chicago')
+setupYelpDataBase(data4, 'Detroit')
+setupYelpDataBase(data5, 'Houston')
+setupYelpDataBase(data6, 'Los Angeles')
+setupYelpDataBase(data7, 'New York')
+setupYelpDataBase(data8, 'Philadelphia')
+setupYelpDataBase(data9, 'San Francisco')
+setupYelpDataBase(data10, 'Seattle')
 
 
-getCalculations()

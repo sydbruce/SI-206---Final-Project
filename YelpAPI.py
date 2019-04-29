@@ -2,6 +2,8 @@ import requests
 import json
 import Keys
 import sqlite3
+import matplotlib
+import matplotlib.pyplot as plt
 
 Yelp_ClientID = Keys.client_ID
 YelpAPIKey = Keys.API_Key
@@ -40,7 +42,9 @@ def setupYelpDataBase(YelpList, city_name):
         cur.execute('INSERT OR IGNORE INTO YelpData(id, name, review_count, rating, price, location, city) VALUES (?,?,?,?,?,?,?)', (_ID, _name, _review_count, _rating, _price, _location, _city))
         conn.commit()
 
-#gets average hotel ranking per city
+    #The Calculations are Below and added into a new database
+
+    
     cur.execute("SELECT rating, city, price from YelpData")
     total = 0
     avg_price = 0
@@ -59,22 +63,45 @@ def setupYelpDataBase(YelpList, city_name):
 
     cur.execute('INSERT INTO YelpCalc(average, avg_price) VALUES (?,?)', (average,avg_price,))
     conn.commit()
-        
+
+
+
 def createYELPVisualizations():
         conn = sqlite3.connect('WeatherDataCorrect.sqlite')
         cur = conn.cursor()     
-        cur.execute("SELECT * FROM YelpData")
 
-        city_list = []
+    #Vizualization for Average Hotel Rank
+        avg_hotel_list = []
+        cur.execute("SELECT * from YelpCalc")
         for row in cur:
-            city_list.append(average)
-
-
-
-
+            avg_hotel_list.append(float(row[0]))
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [avg_hotel_list[0],avg_hotel_list[1],avg_hotel_list[2],avg_hotel_list[3],avg_hotel_list[4],avg_hotel_list[5],avg_hotel_list[6],avg_hotel_list[7],avg_hotel_list[8],avg_hotel_list[9]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "yellow", "orange", "green", "blue", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Hotel Average Rating")
+        plt.xlabel("City")
+        plt.title("Hotel Average Rating for U.S. Cities")
+        plt.savefig("cityHotelRates.png")
+        plt.show()
+
+    #Visualization for Total Price of Hotels per City
+        totalprice = []
+        cur.execute("SELECT * from YelpCalc")
+        for row in cur:
+            totalprice.append(int(row[1]))
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [totalprice[0],totalprice[1],totalprice[2],totalprice[3],totalprice[4],totalprice[5],totalprice[6],totalprice[7],totalprice[8],totalprice[9]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "yellow", "orange", "green", "blue", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Total Price of Top 10 Hotels (Number of $)")
+        plt.xlabel("Cities")
+        plt.title("Total Price of all Top 10 Hotels per City")
+        plt.savefig("TotalPrice.png")
+        plt.show()
 
 
+
+
+#Function calls to get data into DB 
 data1 = getYelp(YelpAPIKey, "Atlanta")
 data2 = getYelp(YelpAPIKey, "Boston")
 data3 = getYelp(YelpAPIKey, "Chicago")
@@ -96,4 +123,5 @@ setupYelpDataBase(data8, 'Philadelphia')
 setupYelpDataBase(data9, 'San Francisco')
 setupYelpDataBase(data10, 'Seattle')
 
-
+#Function call to create Visualizations
+YelpVisualizations = createYELPVisualizations()

@@ -14,7 +14,7 @@ def getWeather(city_id):
 
 
 def getData(response):
-    conn = sqlite3.connect("WeatherData.sqlite") #Faulty, please read comments below
+    conn = sqlite3.connect("CombinedDatabase.sqlite") 
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT UNIQUE, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
     _id = response['city']['id']

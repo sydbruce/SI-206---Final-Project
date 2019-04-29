@@ -157,8 +157,12 @@ data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle
 
 #Function call to create Visualizations
 <<<<<<< HEAD
+<<<<<<< HEAD
 visualize = createVisualizations()
 f.close()
+=======
+#visualize = createVisualizations()
+>>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6
 =======
 #visualize = createVisualizations()
 >>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6

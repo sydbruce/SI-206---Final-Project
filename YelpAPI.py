@@ -40,18 +40,39 @@ def setupYelpDataBase(YelpList, city_name):
         cur.execute('INSERT OR IGNORE INTO YelpData(id, name, review_count, rating, price, location, city) VALUES (?,?,?,?,?,?,?)', (_ID, _name, _review_count, _rating, _price, _location, _city))
         conn.commit()
 
-        cur.execute("SELECT rating, city, price from YelpData")
-        total = 0
-        count = 0
+#gets average hotel ranking per city
+    cur.execute("SELECT rating, city, price from YelpData")
+    total = 0
+    avg_price = 0
+    count = 0
+    for row in cur:
+        city = row[1]
+        price = len(row[2])
+        if city == city_name:
+            total += (row[0])
+            avg_price += price
+            count += 1
+    average = total/count
+    conn = sqlite3.connect('YelpCalc.sqlite')
+    cur = conn.cursor()
+    cur.execute('CREATE TABLE IF NOT EXISTS YelpCalc(average INTEGER, avg_price INTEGER)')
+
+    cur.execute('INSERT INTO YelpCalc(average, avg_price) VALUES (?,?)', (average,avg_price,))
+    conn.commit()
+        
+def createYELPVisualizations():
+        conn = sqlite3.connect('YelpData.sqlite')
+        cur = conn.cursor()     
+        cur.execute("SELECT * FROM YelpData")
+
+        city_list = []
         for row in cur:
-                city = row[1]
-                if city == city:
-                        total += (row[0])
-                        count += 1
-        average = total/count
-        print(average)
-        
-        
+            city_list.append(average)
+
+
+
+
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York", "Philadelphia", "San Francisco", "Seattle"]
 
 
 data1 = getYelp(YelpAPIKey, "Atlanta")

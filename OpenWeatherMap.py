@@ -2,23 +2,19 @@ import requests
 import json
 import Keys
 import sqlite3
-#pprint allows for the "prettified" printing of json paragraphs so that they can be read by humans, 
-#I used it to navigate the response data
 import pprint
 
-#database configuration
 def getWeather(city_id):
     api_key = Keys.api_key
     base_url = "http://api.openweathermap.org/data/2.5/forecast?id=" 
     complete_url = base_url + city_id + "&appid=" + api_key
     raw_response = requests.get(complete_url)
     response = raw_response.json()
-    #pprint.pprint(response) 
     return response
 
 
 def getData(response):
-    conn = sqlite3.connect("Faulty Database.sqlite") #Faulty, please read comments below
+    conn = sqlite3.connect("WeatherData.sqlite") #Faulty, please read comments below
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS WeatherData(id TEXT UNIQUE, city_name TEXT, time TEXT,  temp_max INTEGER, temp_min INTEGER, humidity INTEGER, weather_desc TEXT)")
     _id = response['city']['id']
@@ -36,12 +32,14 @@ def getData(response):
         cur.execute('INSERT OR IGNORE INTO WeatherData(id, city_name, time, temp_max, temp_min, humidity, weather_desc) VALUES (?,?,?,?,?,?,?)', (_id, _city_name, _time, _temp_max, _temp_min,  _humidity, _weather_desc))
         conn.commit()
     
-#UNFIXABLE bug, database will no longer populate normally, data has already been successfully collected
-#The code has not changed, but the database will only populate one entry for each city
-#Note that I have a limit to 16 entries per city with the counter limit above, but the error persists!
-#I will use the initial (correct) database to create my visualizations
+#UNFIXABLE bug, database will no longer populate normally, as
+#my data has already been successfully collected more than 1 week ago 
+#The code has not changed, but the database will only populate one entry for each city 
+#(Total of 10 entries, but is supposed to be 160)
+#I will use the previously "healthy" database called "WeatherDataCorrect.sqlite" to create my visualizations
+#Therefore, when YOU run these functions below, you will see a faulty sqlite database file named "WeatherData.sqlite"
 
-#Therefore, when YOU run these functions below, you will see a faulty sqlite database file.
+
 Atlanta = "4671576"
 Weather_Atlanta = getWeather(Atlanta)
 getData(Weather_Atlanta)

@@ -58,17 +58,9 @@ def get_avg_low(db_filename, city_name):
 
 
 def visualize():
-    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
-    yvals = [get_avg_high("CombinedDatabase.sqlite", city_name = "'Atlanta'")["'Atlanta'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Boston'")["'Boston'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Chicago'")["'Chicago'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Detroit'")["'Detroit'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Houston'")["'Houston'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'New York'")["'New York'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Seattle'")["'Seattle'"]]
-    plt.bar(xvals, yvals, align = "center", color = ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red"])
-    plt.ylabel("Temperature in Degrees Fahrenheit")
-    plt.xlabel("City")
-    plt.title("Average High Temperature for Cities")
-    plt.show()
-
-    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
-    yvals = [get_avg_low("CombinedDatabase.sqlite", city_name = "'Atlanta'")["'Atlanta'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Boston'")["'Boston'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Chicago'")["'Chicago'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Detroit'")["'Detroit'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Houston'")["'Houston'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'New York'")["'New York'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Seattle'")["'Seattle'"]]
-    plt.bar(xvals, yvals, align = "center", color = ["blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"])
+    highs = [get_avg_high("CombinedDatabase.sqlite", city_name = "'Atlanta'")["'Atlanta'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Boston'")["'Boston'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Chicago'")["'Chicago'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Detroit'")["'Detroit'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Houston'")["'Houston'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'New York'")["'New York'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_high("CombinedDatabase.sqlite", city_name = "'Seattle'")["'Seattle'"]]
+    lows = [get_avg_low("CombinedDatabase.sqlite", city_name = "'Atlanta'")["'Atlanta'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Boston'")["'Boston'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Chicago'")["'Chicago'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Detroit'")["'Detroit'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Houston'")["'Houston'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'New York'")["'New York'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_low("CombinedDatabase.sqlite", city_name = "'Seattle'")["'Seattle'"]]
+    plt.scatter(highs, lows, color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
     plt.ylabel("Temperature in Degrees Fahrenheit")
     plt.xlabel("City")
     plt.title("Average Low Temperature for Cities")
@@ -76,7 +68,7 @@ def visualize():
 
     xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
     yvals = [get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Atlanta'")["'Atlanta'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Boston'")["'Boston'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Chicago'")["'Chicago'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Detroit'")["'Detroit'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Houston'")["'Houston'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Los Angeles'")["'Los Angeles'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'New York'")["'New York'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Philadelphia'")["'Philadelphia'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'San Francisco County'")["'San Francisco County'"], get_humidity_avg("CombinedDatabase.sqlite", city_name = "'Seattle'")["'Seattle'"]]
-    plt.bar(xvals, yvals, align = "center", color = ["purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple"])
+    plt.bar(xvals, yvals, align = "center", color = ["blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"])
     plt.ylabel("Humidity Percentage")
     plt.xlabel("City")
     plt.title("Average Humidity for Cities")

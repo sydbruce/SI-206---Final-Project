@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 Yelp_ClientID = Keys.client_ID
 YelpAPIKey = Keys.API_Key
+filename = "YelpCalc.txt"
 
 def getYelp(YelpAPIKey, search_city):
     headers = {'Authorization': 'Bearer %s' % YelpAPIKey}
@@ -63,6 +64,13 @@ def setupYelpDataBase(YelpList, city_name):
 
     cur.execute('INSERT INTO YelpCalc(average, avg_price) VALUES (?,?)', (average,avg_price,))
     conn.commit()
+
+    cur.execute('SELECT * FROM YelpCalc')
+    counter2 = 0
+    f = open(filename, 'w')
+    for row in cur:
+            counter2 += 1
+            f.write("Hotel Rating for city " + str(counter2) + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
 
 
 
@@ -125,3 +133,4 @@ setupYelpDataBase(data10, 'Seattle')
 
 #Function call to create Visualizations
 YelpVisualizations = createYELPVisualizations()
+f.close()

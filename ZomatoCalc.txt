@@ -1,0 +1,10 @@
+Restaurant Rating for city 1 is: 4.650000000000002 and the Price Range is: 2.9
+Restaurant Rating for city 2 is: 4.589999999999999 and the Price Range is: 3.3
+Restaurant Rating for city 3 is: 4.590000000000001 and the Price Range is: 3.1
+Restaurant Rating for city 4 is: 4.740000000000001 and the Price Range is: 1.8
+Restaurant Rating for city 5 is: 4.650000000000001 and the Price Range is: 3.8
+Restaurant Rating for city 6 is: 4.740000000000001 and the Price Range is: 2.2
+Restaurant Rating for city 7 is: 4.659999999999999 and the Price Range is: 3.4
+Restaurant Rating for city 8 is: 4.4 and the Price Range is: 2.6
+Restaurant Rating for city 9 is: 4.63 and the Price Range is: 2.8
+Restaurant Rating for city 10 is: 4.54 and the Price Range is: 2.1

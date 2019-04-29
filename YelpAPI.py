@@ -19,7 +19,7 @@ def getYelp(YelpAPIKey, search_city):
 
 
 def setupYelpDataBase(YelpList, city_name):
-    conn = sqlite3.connect('WeatherDataCorrect.sqlite')
+    conn = sqlite3.connect('CombinedDatabase.sqlite')
     cur = conn.cursor()
 
     cur.execute('CREATE TABLE IF NOT EXISTS YelpData(id TEXT UNIQUE, name TEXT, review_count INTEGER, rating FLOAT, price STRING, location TEXT, city TEXT)')
@@ -67,7 +67,7 @@ def setupYelpDataBase(YelpList, city_name):
 
 
 def createYELPVisualizations():
-        conn = sqlite3.connect('WeatherDataCorrect.sqlite')
+        conn = sqlite3.connect('CombinedDatabase.sqlite')
         cur = conn.cursor()     
 
     #Vizualization for Average Hotel Rank

@@ -69,23 +69,25 @@ def setupZomatoDataBase(data, cityName):
             
             cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating, city_restaurants_price_range_average, city_restaurants_aggregate_rating_average) VALUES (?,?,?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating, _city_restaurants_price_range_average, _city_restaurants_aggregate_rating_average))
             conn.commit()
-    total = 0
+    rate_total = 0
+    price_total = 0
     count = 0
-    price_average = 0
-    average_list = 0
+    rate_average = 0
     cur.execute('SELECT * FROM ZomatoData')
     for row in cur:
             city_name = row[0]
             if city_name == cityName:
-                    total += float(row[5])
+                    rate_total += float(row[5])
+                    price_total += float(row[4])
                     count += 1
-    price_average = total/count
-    print(price_average)
+    rate_average = rate_total/count
+    price_average = price_total/count
+
     conn = sqlite3.connect('ZomatoCalc.sqlite')
     cur = conn.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoCalc(average_price INTEGER)')
+    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoCalc(average_rate INTEGER, average_price INTEGER)')
 
-    cur.execute('INSERT INTO ZomatoCalc(average_price) VALUES (?)', (price_average,))
+    cur.execute('INSERT INTO ZomatoCalc(average_rate, average_price) VALUES (?,?)', (rate_average, price_average,))
     conn.commit()
 
 

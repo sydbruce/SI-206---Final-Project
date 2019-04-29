@@ -84,6 +84,5 @@ def visualize():
 
 
 
-#visualize()
-#combineddatabase("CombinedDatabase.sqlite", "WeatherDataCorrect.sqlite")
+
 

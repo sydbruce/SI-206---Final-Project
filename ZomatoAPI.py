@@ -27,7 +27,7 @@ def getLocationDetails(zomato_key, city_input):
         
         
 def setupZomatoDataBase(data, cityName):
-    conn = sqlite3.connect('ZomatoData.sqlite')
+    conn = sqlite3.connect('WeatherDataCorrect.sqlite')
     cur = conn.cursor()
 
     cur.execute('CREATE TABLE IF NOT EXISTS ZomatoData(city_name TEXT, popularity TEXT, nightlife_index TEXT, best_rated_restaurant_name TEXT, best_rated_restaurant_price_range INTEGER, best_rated_restaurant_aggregate_rating TEXT)')
@@ -66,7 +66,7 @@ def setupZomatoDataBase(data, cityName):
 
 
 def createVisualizations():
-        conn = sqlite3.connect('ZomatoData.sqlite')
+        conn = sqlite3.connect('WeatherDataCorrect.sqlite')
         cur = conn.cursor()
         
         #Popularity Visualization
@@ -143,4 +143,4 @@ data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"), "Sa
 data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle")
 
 #Function call to create Visualizations
-visualize = createVisualizations()
+#visualize = createVisualizations()

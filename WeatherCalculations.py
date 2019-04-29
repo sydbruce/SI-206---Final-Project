@@ -83,5 +83,7 @@ def visualize():
     plt.show()
 
 
-visualize()
+
+#visualize()
+#combineddatabase("CombinedDatabase.sqlite", "WeatherDataCorrect.sqlite")
 

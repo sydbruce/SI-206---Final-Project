@@ -69,10 +69,11 @@ def setupZomatoDataBase(data, cityName):
     conn.commit()
 
     cur.execute('SELECT * FROM ZomatoCalc')
-    
+    counter = 0
     f = open(filename, 'w')
-    for row in cur: 
-        f.write("Restaurant Rating for " + cityName + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
+    for row in cur:
+            counter += 1
+            f.write("Restaurant Rating for restaurant " + str(counter) + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
 
 
 
@@ -156,13 +157,7 @@ data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"), "Sa
 data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle")
 
 #Function call to create Visualizations
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 visualize = createVisualizations()
 f.close()
-=======
-#visualize = createVisualizations()
->>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6
-=======
-#visualize = createVisualizations()
->>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6
+

@@ -57,21 +57,31 @@ def get_avg_low(db_filename, city_name):
     return city
 
 
-def visualize(d):
-    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philadelphia", "San_Francisco", "Seattle"] 
-    yvals = [d["Atlanta"], d["Boston"], d["Chicago"], d["Detroit"], d["Houston"], d["LA"], d["NYC"], d["Philadelphia"], d["San_Francisco"], d["Seattle"]]
-    plt.bar(xvals, yvals, align = "center", color = ["red", "orange", "yellow", "green", "blue", "purple", "black", "brown", "red", "orange"])
-    plt.ylabel("Number of Tweets")
-    plt.xlabel("Day tweeted")
-    plt.title("Number of Tweets per Weekday")
+def visualize():
+    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
+    yvals = [get_avg_high("weatherData.sql", city_name = "'Atlanta'")["'Atlanta'"], get_avg_high("weatherData.sql", city_name = "'Boston'")["'Boston'"], get_avg_high("weatherData.sql", city_name = "'Chicago'")["'Chicago'"], get_avg_high("weatherData.sql", city_name = "'Detroit'")["'Detroit'"], get_avg_high("weatherData.sql", city_name = "'Houston'")["'Houston'"], get_avg_high("weatherData.sql", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_high("weatherData.sql", city_name = "'New York'")["'New York'"], get_avg_high("weatherData.sql", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_high("weatherData.sql", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_high("weatherData.sql", city_name = "'Seattle'")["'Seattle'"]]
+    plt.bar(xvals, yvals, align = "center", color = ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red"])
+    plt.ylabel("Temperature in Degrees Fahrenheit")
+    plt.xlabel("City")
+    plt.title("Average High Temperature for Cities")
     plt.show()
-    plt.savefig("Canvas Upload")
+
+    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
+    yvals = [get_avg_low("weatherData.sql", city_name = "'Atlanta'")["'Atlanta'"], get_avg_low("weatherData.sql", city_name = "'Boston'")["'Boston'"], get_avg_low("weatherData.sql", city_name = "'Chicago'")["'Chicago'"], get_avg_low("weatherData.sql", city_name = "'Detroit'")["'Detroit'"], get_avg_low("weatherData.sql", city_name = "'Houston'")["'Houston'"], get_avg_low("weatherData.sql", city_name = "'Los Angeles'")["'Los Angeles'"], get_avg_low("weatherData.sql", city_name = "'New York'")["'New York'"], get_avg_low("weatherData.sql", city_name = "'Philadelphia'")["'Philadelphia'"], get_avg_low("weatherData.sql", city_name = "'San Francisco County'")["'San Francisco County'"], get_avg_low("weatherData.sql", city_name = "'Seattle'")["'Seattle'"]]
+    plt.bar(xvals, yvals, align = "center", color = ["blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"])
+    plt.ylabel("Temperature in Degrees Fahrenheit")
+    plt.xlabel("City")
+    plt.title("Average Low Temperature for Cities")
+    plt.show()
+
+    xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "LA", "NYC", "Philly", "SF", "Seattle"] 
+    yvals = [get_humidity_avg("weatherData.sql", city_name = "'Atlanta'")["'Atlanta'"], get_humidity_avg("weatherData.sql", city_name = "'Boston'")["'Boston'"], get_humidity_avg("weatherData.sql", city_name = "'Chicago'")["'Chicago'"], get_humidity_avg("weatherData.sql", city_name = "'Detroit'")["'Detroit'"], get_humidity_avg("weatherData.sql", city_name = "'Houston'")["'Houston'"], get_humidity_avg("weatherData.sql", city_name = "'Los Angeles'")["'Los Angeles'"], get_humidity_avg("weatherData.sql", city_name = "'New York'")["'New York'"], get_humidity_avg("weatherData.sql", city_name = "'Philadelphia'")["'Philadelphia'"], get_humidity_avg("weatherData.sql", city_name = "'San Francisco County'")["'San Francisco County'"], get_humidity_avg("weatherData.sql", city_name = "'Seattle'")["'Seattle'"]]
+    plt.bar(xvals, yvals, align = "center", color = ["purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple", "purple"])
+    plt.ylabel("Humidity Percentage")
+    plt.xlabel("City")
+    plt.title("Average Humidity for Cities")
+    plt.show()
 
 
-#BostonData = get_precipitation_counts("WeatherData.sql", city_name = "'Boston'")
-#ChicagoData = get_precipitation_counts("weatherData.sql", city_name = "'Chicago'")
+visualize()
 
-AtlantaData = get_avg_low("WeatherData.sql", city_name = "'Atlanta'")
-print(AtlantaData)
-#print(BostonData)
-#print(ChicagoData)

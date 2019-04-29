@@ -85,7 +85,7 @@ def createYELPVisualizations():
             avg_hotel_list.append(float(row[0]))
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [avg_hotel_list[0],avg_hotel_list[1],avg_hotel_list[2],avg_hotel_list[3],avg_hotel_list[4],avg_hotel_list[5],avg_hotel_list[6],avg_hotel_list[7],avg_hotel_list[8],avg_hotel_list[9]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "yellow", "orange", "green", "blue", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Hotel Average Rating")
         plt.xlabel("City")
         plt.title("Hotel Average Rating for U.S. Cities")
@@ -99,7 +99,7 @@ def createYELPVisualizations():
             totalprice.append(int(row[1]))
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [totalprice[0],totalprice[1],totalprice[2],totalprice[3],totalprice[4],totalprice[5],totalprice[6],totalprice[7],totalprice[8],totalprice[9]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "yellow", "orange", "green", "blue", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Total Price of Top 10 Hotels (Number of $)")
         plt.xlabel("Cities")
         plt.title("Total Price of all Top 10 Hotels per City")

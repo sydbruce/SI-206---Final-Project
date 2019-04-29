@@ -81,19 +81,3 @@ getData(Weather_San_Francisco)
 Seattle = "5809844"
 Weather_Seattle = getWeather(Seattle)
 getData(Weather_Seattle)
-
-
-#Visualizations#
-
-import matplotlib
-
-def get_precipitation_counts(db_filename):
-    conn = sqlite3.connect("WeatherData.sql")
-    cur = conn.cursor()
-    dicts = {}
-    cur.execute("SELECT weather_desc FROM WeatherData")
-    for row in cur:
-        weather = (row[0][0:20])
-        dicts[weather] = dicts.get(weather, 0) + 1
-    
-    return dicts

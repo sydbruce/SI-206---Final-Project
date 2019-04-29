@@ -73,11 +73,9 @@ def setupZomatoDataBase(data, cityName):
     f = open(filename, 'w')
     for row in cur:
             counter += 1
-            f.write("Restaurant Rating for restaurant " + str(counter) + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
+            f.write("Restaurant Rating for city " + str(counter) + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
 
 
-
-    
 
 def createVisualizations():
         conn = sqlite3.connect('CombinedDatabase.sqlite')

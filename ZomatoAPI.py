@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 zomato_key = Keys.ZomatoAPI
+filename = 'ZomatoCalc.txt'
 
 def getZomato(zomato_key, location):
         url = "https://developers.zomato.com/api/v2.1/locations"
@@ -58,12 +59,24 @@ def setupZomatoDataBase(data, cityName):
     rate_average = rate_total/count
     price_average = price_total/count
 
+    
+    
+
     conn = sqlite3.connect('ZomatoCalc.sqlite')
     cur = conn.cursor()
     cur.execute('CREATE TABLE IF NOT EXISTS ZomatoCalc(average_rate INTEGER, average_price INTEGER)')
     cur.execute('INSERT INTO ZomatoCalc(average_rate, average_price) VALUES (?,?)', (rate_average, price_average,))
     conn.commit()
 
+    cur.execute('SELECT * FROM ZomatoCalc')
+    
+    f = open(filename, 'w')
+    for row in cur: 
+        f.write("Restaurant Rating for " + cityName + " is: " + str(row[0]) + " and the Price Range is: " + str(row[1])+ "\n")
+
+
+
+    
 
 def createVisualizations():
         conn = sqlite3.connect('CombinedDatabase.sqlite')
@@ -143,4 +156,13 @@ data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"), "Sa
 data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"), "Seattle")
 
 #Function call to create Visualizations
+<<<<<<< HEAD
+<<<<<<< HEAD
+visualize = createVisualizations()
+f.close()
+=======
 #visualize = createVisualizations()
+>>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6
+=======
+#visualize = createVisualizations()
+>>>>>>> a3838b8928420675f277fa1fe844f4b0e6412ed6

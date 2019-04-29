@@ -89,7 +89,7 @@ def createVisualizations():
                         popularity_dict[row[0]] = float(row[1])
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [popularity_dict["Atlanta"],popularity_dict["Boston"],popularity_dict["Chicago"],popularity_dict["Detroit"],popularity_dict["Houston"],popularity_dict["Los Angeles"],popularity_dict["New York City"],popularity_dict["Philadelphia"],popularity_dict["San Francisco"],popularity_dict["Seattle"]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Popularity Rating")
         plt.xlabel("City Name")
         plt.title("Popularity Rating for U.S. Cities")
@@ -104,7 +104,7 @@ def createVisualizations():
                         nightlife_dict[row[0]] = float(row[2])
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [nightlife_dict["Atlanta"],nightlife_dict["Boston"],nightlife_dict["Chicago"],nightlife_dict["Detroit"],nightlife_dict["Houston"],nightlife_dict["Los Angeles"],nightlife_dict["New York City"],nightlife_dict["Philadelphia"],nightlife_dict["San Francisco"],nightlife_dict["Seattle"]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Nightlife Rating")
         plt.xlabel("City Name")
         plt.title("Nightlife Rating for U.S. Cities")
@@ -121,7 +121,7 @@ def createVisualizations():
                 rate_list.append(float(row[0]))
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [rate_list[0],rate_list[1],rate_list[2],rate_list[3],rate_list[4],rate_list[5],rate_list[6],rate_list[7],rate_list[8],rate_list[9]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Restaurant Average Rating")
         plt.xlabel("City Name")
         plt.title("Restaurant Average Rating for U.S. Cities")
@@ -135,7 +135,7 @@ def createVisualizations():
                 price_list.append(float(row[1]))
         xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
         yvals = [price_list[0],price_list[1],price_list[2],price_list[3],price_list[4],price_list[5],price_list[6],price_list[7],price_list[8],price_list[9]]
-        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.bar(xvals, yvals, align = "center", color= ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "grey"])
         plt.ylabel("Restaurant Average Price")
         plt.xlabel("City Name")
         plt.title("Restaurant Average Price for U.S. Cities")

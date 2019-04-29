@@ -71,15 +71,23 @@ def setupZomatoDataBase(data, cityName):
             conn.commit()
     total = 0
     count = 0
-    average = 0
+    price_average = 0
+    average_list = 0
     cur.execute('SELECT * FROM ZomatoData')
     for row in cur:
             city_name = row[0]
             if city_name == cityName:
                     total += float(row[5])
                     count += 1
-    average = total/count
-    print(average)
+    price_average = total/count
+    print(price_average)
+    conn = sqlite3.connect('ZomatoCalc.sqlite')
+    cur = conn.cursor()
+    cur.execute('CREATE TABLE IF NOT EXISTS ZomatoCalc(average_price INTEGER)')
+
+    cur.execute('INSERT INTO ZomatoCalc(average_price) VALUES (?)', (price_average,))
+    conn.commit()
+
 
 
 def createVisualizations():

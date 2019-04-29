@@ -3,6 +3,8 @@ import requests
 import json
 import Keys
 import sqlite3
+import matplotlib
+import matplotlib.pyplot as plt
 
 zomato_key = Keys.ZomatoAPI
 """
@@ -68,6 +70,40 @@ def setupZomatoDataBase(data):
             cur.execute('INSERT INTO ZomatoData(city_name, popularity, nightlife_index, best_rated_restaurant_name, best_rated_restaurant_price_range, best_rated_restaurant_aggregate_rating, city_restaurants_price_range_average, city_restaurants_aggregate_rating_average) VALUES (?,?,?,?,?,?,?,?)', (_city_name, _popularity, _nightlife_index, _best_rated_restaurant_name, _best_rated_restaurant_price_range, _best_rated_restaurant_aggregate_rating, _city_restaurants_price_range_average, _city_restaurants_aggregate_rating_average))
             conn.commit()
 
+def createVisualizations():
+        conn = sqlite3.connect('ZomatoData.sqlite')
+        cur = conn.cursor()
+        
+        #Popularity Visualization
+        popularity_dict = {}
+        cur.execute("SELECT * from ZomatoData")
+        for row in cur:
+                if row[0] not in popularity_dict:
+                        popularity_dict[row[0]] = float(row[1])
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [popularity_dict["Atlanta"],popularity_dict["Boston"],popularity_dict["Chicago"],popularity_dict["Detroit"],popularity_dict["Houston"],popularity_dict["Los Angeles"],popularity_dict["New York City"],popularity_dict["Philadelphia"],popularity_dict["San Francisco"],popularity_dict["Seattle"]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Popularity Rating")
+        plt.xlabel("City Name")
+        plt.title("Popularity Rating for U.S. Cities")
+        plt.savefig("cityPopularities.png")
+        plt.show()
+
+        #NightLife Visualization
+        nightlife_dict = {}
+        cur.execute("SELECT * from ZomatoData")
+        for row in cur:
+                if row[0] not in nightlife_dict:
+                        nightlife_dict[row[0]] = float(row[2])
+        xvals = ["Atlanta", "Boston", "Chicago", "Detroit", "Houston", "Los Angeles", "New York City", "Philadelphia", "San Francisco", "Seattle"]
+        yvals = [nightlife_dict["Atlanta"],nightlife_dict["Boston"],nightlife_dict["Chicago"],nightlife_dict["Detroit"],nightlife_dict["Houston"],nightlife_dict["Los Angeles"],nightlife_dict["New York City"],nightlife_dict["Philadelphia"],nightlife_dict["San Francisco"],nightlife_dict["Seattle"]]
+        plt.bar(xvals, yvals, align = "center", color= ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "grey"])
+        plt.ylabel("Nightlife Rating")
+        plt.xlabel("City Name")
+        plt.title("Nightlife Rating for U.S. Cities")
+        plt.savefig("cityNightlife.png")
+        plt.show()
+
 #For visualizations: I can look at city popularity, nightlife_index, best_restaurant price/rating, city_restaurants average price/rating
    
 data1 = setupZomatoDataBase(getLocationDetails(zomato_key, "Atlanta"))
@@ -81,4 +117,4 @@ data8 = setupZomatoDataBase(getLocationDetails(zomato_key, "Philadelphia"))
 data9 = setupZomatoDataBase(getLocationDetails(zomato_key, "San Francisco"))
 data10 = setupZomatoDataBase(getLocationDetails(zomato_key, "Seattle"))
 
-
+data11 = createVisualizations()
